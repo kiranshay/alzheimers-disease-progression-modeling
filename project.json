@@ -1,0 +1,19 @@
+{
+  "name": "Alzheimer's Disease Progression Modeling",
+  "description": "Predict Alzheimer's progression trajectories using 3D CNNs on longitudinal brain MRI.",
+  "problem_statement": "AD progresses at different rates. Predictive models could identify fast progressors for intervention.",
+  "technical_approach": "3D ResNet for MRI features, LSTM for temporal modeling. Grad-CAM for interpretability.",
+  "data_sources": [
+    "ADNI",
+    "OASIS-3"
+  ],
+  "tags": [
+    "Medical Imaging",
+    "3D CNN",
+    "Healthcare",
+    "PyTorch"
+  ],
+  "status": "planned",
+  "github_url": "https://github.com/kiranshay/alzheimers-disease-progression-modeling",
+  "demo_url": "https://alzheimersdiseasepro.streamlit.app"
+}
