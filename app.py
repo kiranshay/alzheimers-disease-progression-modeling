@@ -14,7 +14,7 @@ st.set_page_config(
     page_title="Alzheimer's Progression Model",
     page_icon="🧠",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # Custom CSS
@@ -91,10 +91,51 @@ st.markdown("""<style>
     margin: 0.5rem 0;
     border-left: 4px solid;
 }
+/* Sidebar expander text fix */
+[data-testid="stSidebar"] [data-testid="stExpander"] {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary,
+[data-testid="stSidebar"] [data-testid="stExpander"] summary span,
+[data-testid="stSidebar"] [data-testid="stExpander"] summary p {
+    color: #94a3b8 !important;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] p,
+[data-testid="stSidebar"] [data-testid="stExpander"] span,
+[data-testid="stSidebar"] [data-testid="stExpander"] li,
+[data-testid="stSidebar"] [data-testid="stExpander"] div {
+    color: #e2e8f0 !important;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] strong {
+    color: #f8fafc !important;
+}
+@media (max-width: 768px) {
+    .main .block-container { padding: 1rem; }
+    .main-header { font-size: 1.5rem; }
+    .subtitle { font-size: 0.9rem; margin-bottom: 1rem; }
+    .section-header { font-size: 1.2rem; }
+    .metric-container { padding: 0.75rem; margin-bottom: 0.5rem; }
+    .metric-container h3 { font-size: 1.1rem; }
+    .param-grid { grid-template-columns: 1fr; }
+    .stTabs [data-baseweb="tab-list"] { padding: 4px; gap: 2px; }
+    .stTabs [data-baseweb="tab"] { height: 36px; padding: 0 8px; font-size: 0.7rem; }
+    .def-item { flex-direction: column; gap: 0.25rem; }
+    .def-term { min-width: auto; }
+    .subsection-header { font-size: 1.1rem; }
+}
 </style>""", unsafe_allow_html=True)
 
 st.markdown('<h1 class="main-header">🧠 Alzheimer\'s Disease Progression Modeling</h1>', unsafe_allow_html=True)
 st.markdown('<p class="sub-header">Deep Learning for Predicting Cognitive Decline • 3D CNN-LSTM • Longitudinal MRI Analysis</p>', unsafe_allow_html=True)
+
+st.markdown("""
+<div class="highlight-box">
+<p>👈 <strong>Getting started:</strong> Open the sidebar (arrow at top-left)
+to configure parameters. Changes update visualizations in real time.</p>
+</div>
+""", unsafe_allow_html=True)
 
 
 class ProgressionPredictor:
@@ -205,10 +246,23 @@ age = st.sidebar.slider("Age", 55, 95, 72)
 apoe4 = st.sidebar.selectbox("APOE4 Status", ["Non-carrier", "Carrier"], index=0)
 apoe4_val = 1 if apoe4 == "Carrier" else 0
 
+with st.sidebar.expander("ℹ️ What are these?"):
+    st.markdown("""
+- **Age** -- Patient age in years. Older age is associated with higher progression risk.
+- **APOE4 Status** -- Whether the patient carries the APOE-e4 allele, the strongest known genetic risk factor for late-onset Alzheimer's.
+""")
+
 baseline_mmse = st.sidebar.slider("Baseline MMSE", 15, 30, 26, help="Mini-Mental State Examination (0-30)")
 hippocampal_vol = st.sidebar.slider("Hippocampal Volume", 0.5, 1.0, 0.85, 0.05, help="Normalized volume (1.0 = healthy)")
 
 diagnosis = st.sidebar.selectbox("Current Diagnosis", ["Cognitively Normal", "Mild Cognitive Impairment", "Early Alzheimer's"])
+
+with st.sidebar.expander("ℹ️ What are these?"):
+    st.markdown("""
+- **Baseline MMSE** -- Mini-Mental State Examination score (0-30). Scores below 24 suggest cognitive impairment; lower values indicate greater impairment.
+- **Hippocampal Volume** -- Normalized volume of the hippocampus (1.0 = healthy). The hippocampus shrinks as Alzheimer's progresses.
+- **Current Diagnosis** -- The patient's current clinical classification, ranging from cognitively normal to early Alzheimer's disease.
+""")
 
 # Get prediction
 prediction = predictor.predict_progression(age, apoe4_val, baseline_mmse, hippocampal_vol)
@@ -293,7 +347,7 @@ with tab2:
         # Simulated brain scans at different timepoints
         atrophy = 1 - hippocampal_vol
 
-        fig, axes = plt.subplots(1, 4, figsize=(14, 4))
+        fig, axes = plt.subplots(1, 4, figsize=(10, 4))
 
         for i, (ax, label) in enumerate(zip(axes, ['Baseline', '+12 mo', '+24 mo', '+36 mo'])):
             atrophy_level = atrophy * (1 + i * 0.3)
@@ -342,12 +396,13 @@ with tab2:
 
     # Biomarker correlations
     st.markdown("### Biomarker Correlations")
-    bcol1, bcol2, bcol3, bcol4 = st.columns(4)
-
+    bcol1, bcol2 = st.columns(2)
     with bcol1:
         st.metric("CSF Tau", "r = 0.71", help="Correlation with CSF tau levels")
     with bcol2:
         st.metric("CSF Aβ42", "r = -0.65", help="Correlation with amyloid beta")
+
+    bcol3, bcol4 = st.columns(2)
     with bcol3:
         st.metric("PET Amyloid", "r = 0.68", help="Correlation with PET imaging")
     with bcol4:
