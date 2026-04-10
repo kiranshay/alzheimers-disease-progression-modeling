@@ -19,97 +19,110 @@ st.set_page_config(
 
 # Custom CSS
 st.markdown("""<style>
+@import url('https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600;700&display=swap');
+.main .block-container {
+    background-color: #FAFBFD;
+    font-family: 'Public Sans', sans-serif;
+    color: #1A1D23;
+}
 .main-header {
+    font-family: 'Literata', serif;
+    font-style: italic;
+    font-weight: 400;
     font-size: 2.5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #1B365D;
     margin-bottom: 0;
 }
 .sub-header {
+    font-family: 'Public Sans', sans-serif;
     font-size: 1.1rem;
-    color: #94a3b8;
+    color: #5C6370;
     margin-bottom: 2rem;
 }
 .metric-card {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    background: #F1F4F9;
     border-radius: 12px;
     padding: 1.5rem;
-    border: 1px solid #334155;
+    border: 1px solid rgba(27, 54, 93, 0.12);
     text-align: center;
 }
 .metric-value {
+    font-family: 'Literata', serif;
     font-size: 2rem;
     font-weight: 700;
+    color: #1B365D;
 }
 .metric-label {
+    font-family: 'Public Sans', sans-serif;
     font-size: 0.85rem;
-    color: #94a3b8;
+    color: #5C6370;
 }
 .risk-card {
     border-radius: 16px;
     padding: 2rem;
     text-align: center;
     margin: 1rem 0;
+    color: #FFFFFF;
 }
-.risk-low { background: linear-gradient(135deg, #166534 0%, #14532d 100%); }
-.risk-moderate { background: linear-gradient(135deg, #a16207 0%, #854d0e 100%); }
-.risk-high { background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%); }
+.risk-low { background: #15803D; }
+.risk-moderate { background: #B45309; }
+.risk-high { background: #B91C1C; }
 .stTabs [data-baseweb="tab-list"] {
     gap: 8px;
     background-color: transparent;
 }
 .stTabs [data-baseweb="tab"] {
-    background-color: #1e293b;
+    background-color: #FAFBFD;
     border-radius: 8px;
     padding: 12px 24px;
-    color: #94a3b8 !important;
+    color: #1B365D !important;
+    font-family: 'Public Sans', sans-serif;
     font-weight: 500;
-    border: 1px solid #334155;
+    border: 1px solid rgba(27, 54, 93, 0.12);
 }
 .stTabs [data-baseweb="tab"]:hover {
-    background-color: #334155;
-    color: #e2e8f0 !important;
+    background-color: #F1F4F9;
+    color: #1B365D !important;
 }
 .stTabs [aria-selected="true"] {
-    background-color: #8b5cf6 !important;
-    color: white !important;
-    border: 1px solid #8b5cf6 !important;
+    background-color: #1B365D !important;
+    color: #FFFFFF !important;
+    border: 1px solid #1B365D !important;
 }
 .arch-container {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: #F1F4F9;
     border-radius: 16px;
     padding: 2rem;
     margin: 1rem 0;
+    border: 1px solid rgba(27, 54, 93, 0.12);
 }
 .timeline-item {
-    background: #1e293b;
+    background: #F1F4F9;
     border-radius: 12px;
     padding: 1rem;
     margin: 0.5rem 0;
-    border-left: 4px solid;
+    border-left: 4px solid #1B365D;
+    color: #1A1D23;
 }
 /* Sidebar expander text fix */
 [data-testid="stSidebar"] [data-testid="stExpander"] {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(27, 54, 93, 0.05);
+    border: 1px solid rgba(27, 54, 93, 0.12);
     border-radius: 8px;
 }
 [data-testid="stSidebar"] [data-testid="stExpander"] summary,
 [data-testid="stSidebar"] [data-testid="stExpander"] summary span,
 [data-testid="stSidebar"] [data-testid="stExpander"] summary p {
-    color: #94a3b8 !important;
+    color: #5C6370 !important;
 }
 [data-testid="stSidebar"] [data-testid="stExpander"] p,
 [data-testid="stSidebar"] [data-testid="stExpander"] span,
 [data-testid="stSidebar"] [data-testid="stExpander"] li,
 [data-testid="stSidebar"] [data-testid="stExpander"] div {
-    color: #e2e8f0 !important;
+    color: #1A1D23 !important;
 }
 [data-testid="stSidebar"] [data-testid="stExpander"] strong {
-    color: #f8fafc !important;
+    color: #1B365D !important;
 }
 @media (max-width: 768px) {
     .main .block-container { padding: 1rem; }
